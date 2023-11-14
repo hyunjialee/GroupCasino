@@ -32,4 +32,3 @@ public enum NumberValue {
         return secondaryValue;
     }
 }
-// This is a test - nathan
