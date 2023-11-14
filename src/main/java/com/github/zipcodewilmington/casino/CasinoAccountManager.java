@@ -1,5 +1,8 @@
 package com.github.zipcodewilmington.casino;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by leon on 7/21/2020.
  * `ArcadeAccountManager` stores, manages, and retrieves `ArcadeAccount` objects
@@ -11,11 +14,17 @@ public class CasinoAccountManager {
      * @param accountPassword password of account to be returned
      * @return `ArcadeAccount` with specified `accountName` and `accountPassword`
      */
+    private List<CasinoAccount> casinoAccountList;
+
+    public CasinoAccountManager(){
+        this.casinoAccountList = new ArrayList<>();
+    }
     public CasinoAccount getAccount(String accountName, String accountPassword) {
-        String currentMethodName = new Object(){}.getClass().getEnclosingMethod().getName();
-        String currentClassName = getClass().getName();
-        String errorMessage = "Method with name [ %s ], defined in class with name [ %s ] has  not yet been implemented";
-        throw new RuntimeException(String.format(errorMessage, currentMethodName, currentClassName));
+        for (CasinoAccount account : casinoAccountList){
+            if (account.getName().equals(accountName) && account.getPassword().equals(accountPassword)) {
+                return account;
+            }
+        } return null;
     }
 
     /**
@@ -26,10 +35,8 @@ public class CasinoAccountManager {
      * @return new instance of `ArcadeAccount` with specified `accountName` and `accountPassword`
      */
     public CasinoAccount createAccount(String accountName, String accountPassword) {
-        String currentMethodName = new Object(){}.getClass().getEnclosingMethod().getName();
-        String currentClassName = getClass().getName();
-        String errorMessage = "Method with name [ %s ], defined in class with name [ %s ] has  not yet been implemented";
-        throw new RuntimeException(String.format(errorMessage, currentMethodName, currentClassName));
+        CasinoAccount newAccount = new CasinoAccount(accountName, accountPassword);
+        return newAccount;
     }
 
     /**
@@ -38,9 +45,6 @@ public class CasinoAccountManager {
      * @param casinoAccount the arcadeAccount to be added to `this.getArcadeAccountList()`
      */
     public void registerAccount(CasinoAccount casinoAccount) {
-        String currentMethodName = new Object(){}.getClass().getEnclosingMethod().getName();
-        String currentClassName = getClass().getName();
-        String errorMessage = "Method with name [ %s ], defined in class with name [ %s ] has  not yet been implemented";
-        throw new RuntimeException(String.format(errorMessage, currentMethodName, currentClassName));
+        this.casinoAccountList.add(casinoAccount);
     }
 }
