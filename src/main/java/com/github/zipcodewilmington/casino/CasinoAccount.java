@@ -13,7 +13,7 @@ public class CasinoAccount {
     public CasinoAccount (String name, String password) {
         this.name = name;
         this.password = password;
-        this.balance = 100;
+        this.balance = 1000;
     }
     public String getName() {
         return name;

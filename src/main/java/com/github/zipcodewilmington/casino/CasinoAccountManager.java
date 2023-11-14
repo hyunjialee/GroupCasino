@@ -21,7 +21,7 @@ public class CasinoAccountManager {
     }
     public CasinoAccount getAccount(String accountName, String accountPassword) {
         for (CasinoAccount account : casinoAccountList){
-            if (account.getName().equals(accountName) && account.getPassword().equals(accountPassword){
+            if (account.getName().equals(accountName) && account.getPassword().equals(accountPassword)) {
                 return account;
             }
         } return null;
