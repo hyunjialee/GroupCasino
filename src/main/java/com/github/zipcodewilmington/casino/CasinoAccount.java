@@ -10,10 +10,10 @@ public class CasinoAccount {
     private String password;
     private int balance;
 
-    public CasinoAccount (String name, String password, int balance) {
+    public CasinoAccount (String name, String password) {
         this.name = name;
         this.password = password;
-        this.balance = balance;
+        this.balance = 100;
     }
     public String getName() {
         return name;
