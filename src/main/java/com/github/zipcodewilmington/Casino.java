@@ -66,7 +66,7 @@ public class Casino implements Runnable {
         return console.getStringInput(new StringBuilder()
                 .append("Welcome to the Game Selection Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
-                .append("\n\t[ SLOTS ], [ BLACKJACK ], [ BINGO ], [ CHOHAN ], [ CRAPS ], [ WAR ]")
+                .append("\n\t[ slots ], [ blackjack ], [ bingo ], [ chohan ], [ craps ], [ war ]")
                 .toString());
     }
 
