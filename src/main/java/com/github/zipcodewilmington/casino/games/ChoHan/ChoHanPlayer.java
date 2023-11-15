@@ -6,7 +6,6 @@ import com.github.zipcodewilmington.casino.PlayerInterface;
 public class ChoHanPlayer implements PlayerInterface {
     CasinoAccount casinoAccount;
 
-
     public ChoHanPlayer(CasinoAccount CasinoAccount){
         this.casinoAccount = CasinoAccount;
     }
