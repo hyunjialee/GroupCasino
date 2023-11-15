@@ -1,4 +1,7 @@
 package com.github.zipcodewilmington.casino.games.Craps;
 
-public class CrapsPlayer {
+import com.github.zipcodewilmington.casino.PlayerInterface;
+
+public class CrapsPlayer  {
+
 }
