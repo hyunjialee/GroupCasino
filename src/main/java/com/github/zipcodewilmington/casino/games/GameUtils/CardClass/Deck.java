@@ -3,7 +3,10 @@ package com.github.zipcodewilmington.casino.games.GameUtils.CardClass;
 import java.util.Collections;
 import java.util.Stack;
 
-public class Deck {public Stack<Cards> deckOfCards = new Stack<>();
+public class Deck {
+    public Stack<Cards> deckOfCards = new Stack<>();
+
+    //deck of cards extends stack
 
     public void shuffle(){
         Collections.shuffle(deckOfCards);
@@ -11,10 +14,6 @@ public class Deck {public Stack<Cards> deckOfCards = new Stack<>();
 
     public Cards draw(){
         return deckOfCards.pop();
-    }
-
-    public Cards flip(){
-        return deckOfCards.peek();
     }
 
     // needs 1-13 of each suit
