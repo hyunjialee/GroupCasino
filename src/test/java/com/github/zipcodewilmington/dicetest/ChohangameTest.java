@@ -10,6 +10,7 @@ public class ChohangameTest {
     }
 
     @Test
-    public void testAdd(){
+    public void testRemove(){
+
     }
 }
