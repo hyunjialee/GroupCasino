@@ -1,6 +1,6 @@
 package com.github.zipcodewilmington.casino.games.GameUtils;
 
-public abstract class AbstractDiceGame {
+public abstract class AbstractRandomGame {
     public abstract String getPlayerBeginInput();
     public abstract int getPlayerBetInput();
     public abstract String getPlayerInGameInput();
