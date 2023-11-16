@@ -96,7 +96,6 @@ public class ChoHanGame extends AbstractRandomGame implements GameInterface {
                     " | |    | '_ \\ / _ \\  |  __  |/ _` | '_ \\ \n" +
                     " | |____| | | | (_) | | |  | | (_| | | | |\n" +
                     "  \\_____|_| |_|\\___/  |_|  |_|\\__,_|_| |_|\n" +
-                    "                                          \n" +
                     "                                          \n" + "              _______.\n" +
                     "   ______    | .   . |\\\n" +
                     "  /     /\\   |   .   |.\\\n" +
@@ -126,19 +125,18 @@ public class ChoHanGame extends AbstractRandomGame implements GameInterface {
 
                 // need guess statement here
 
-                int diceValue;
-                int x = dice.rollDice();
-                int y = dice.rollDice();
+                int totalSum;
+                int dice1 = dice.rollDice(); // Random 1-6
+                int dice2 = dice.rollDice(); // Random 1-6
 
-                diceValue = x + y;
+                totalSum = dice1 + dice2; //has to be a number 2 - 12
 
                 String guess = getPlayerGuessInput();
-                System.out.println("[ " + x + " ]  [ " + y + " ]");
-                if ((guess.equalsIgnoreCase("even") && diceValue % 2 == 0) || (guess.equalsIgnoreCase("odd") && diceValue % 2 != 0)) {
+                System.out.println("[ " + dice1 + " ]  [ " + dice2 + " ]");
+                if ((guess.equalsIgnoreCase("even") && totalSum % 2 == 0) || (guess.equalsIgnoreCase("odd") && totalSum % 2 != 0)) {
                     player.setBalance(player.getBalance() + bet);
                     System.out.println("\n" + player.getName() + "'s total balance: " + player.getBalance());
                     gameInput = getPlayerWinInput();
-
 
 
                     // guess number needs to be 2 4 6 8 10 12 to return win
@@ -147,8 +145,7 @@ public class ChoHanGame extends AbstractRandomGame implements GameInterface {
                     player.setBalance(player.getBalance() - bet);
                     System.out.println("\n" + player.getName() + "'s total balance: " + player.getBalance());
                     gameInput = getPlayerLostInput();
-
-
+                    
                 }
 
             }
