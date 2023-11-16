@@ -25,16 +25,16 @@ public class Casino implements Runnable {
         CasinoAccountManager casinoAccountManager = new CasinoAccountManager();
         do {
             arcadeDashBoardInput = getArcadeDashboardInput();
-            if ("select-game".equals(arcadeDashBoardInput)) {
+            if ("select game".equalsIgnoreCase(arcadeDashBoardInput)) {
                 String accountName = console.getStringInput("Enter your account name:");
                 String accountPassword = console.getStringInput("Enter your account password:");
                 CasinoAccount casinoAccount = casinoAccountManager.getAccount(accountName, accountPassword);
                 boolean isValidLogin = casinoAccount != null;
                 if (isValidLogin) {
                     String gameSelectionInput = getGameSelectionInput().toUpperCase();
-                    if (gameSelectionInput.equals("SLOTS")) {
+                    if (gameSelectionInput.equalsIgnoreCase("SLOTS")) {
                         play(new SlotsGame(), new SlotsPlayer());
-                    } else if (gameSelectionInput.equals("NUMBERGUESS")) {
+                    } else if (gameSelectionInput.equalsIgnoreCase("NUMBERGUESS")) {
                         play(new NumberGuessGame(), new NumberGuessPlayer());
                     } else if (gameSelectionInput.equalsIgnoreCase("CHOHAN")) {
                         play(new ChoHanGame(), new ChoHanPlayer(casinoAccount));
@@ -48,21 +48,26 @@ public class Casino implements Runnable {
                     System.out.println("No account found with name of " + accountName + " and password of " + accountPassword);
 //                    throw new RuntimeException(String.format(errorMessage, accountPassword, accountName));
                 }
-            } else if ("create-account".equals(arcadeDashBoardInput)) {
+            } else if ("create account".equalsIgnoreCase(arcadeDashBoardInput)) {
                 console.println("Welcome to the account-creation screen.");
                 String accountName = console.getStringInput("Enter your account name:");
                 String accountPassword = console.getStringInput("Enter your account password:");
                 CasinoAccount newAccount = casinoAccountManager.createAccount(accountName, accountPassword);
-                casinoAccountManager.registerAccount(newAccount);
+                if (newAccount != null){
+                    casinoAccountManager.registerAccount(newAccount);
+                } else {
+                    System.out.println("This accounts exists, please try again");
+                }
             }
-        } while (!"logout".equals(arcadeDashBoardInput));
+        } while (!"logout".equalsIgnoreCase(arcadeDashBoardInput));
+        casinoAccountManager.saveToFile();
     }
 
     private String getArcadeDashboardInput() {
         return console.getStringInput(new StringBuilder()
                 .append("Welcome to the Arcade Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
-                .append("\n\t[ create-account ], [ select-game ], [ logout ]")
+                .append("\n\t[ create account ], [ select game ], [ logout ]")
                 .toString());
     }
 
