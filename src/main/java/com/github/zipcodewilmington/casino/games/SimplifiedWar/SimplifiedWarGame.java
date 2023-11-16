@@ -4,6 +4,7 @@ import com.github.zipcodewilmington.casino.games.GameUtils.CardClass.Cards;
 import com.github.zipcodewilmington.casino.games.GameUtils.CardClass.Deck;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -28,9 +29,6 @@ public class SimplifiedWarGame {
     }
 
     public boolean dealHands() {
-        Stack<Cards> playerHand = player.getHand();
-        Stack<Cards> opponentHand = opponent.getHand();
-
         int deckSize = deck.deckOfCards.size();
         for (int i = 0; i < deckSize; i++) {
             if (i % 2 == 0) {
@@ -47,13 +45,13 @@ public class SimplifiedWarGame {
         return (simplifiedPlayer.getHand().size() + simplifiedPlayer.getWinningPile().size()) != 0;
     }
 
-    public int determineRoundWinner(Cards playerCard, Cards opponentCard) {
+    public String determineRoundWinner(Cards playerCard, Cards opponentCard) {
         if (playerCard.getNumberValue().getPrimaryValue() > opponentCard.getNumberValue().getPrimaryValue()) {
-            return 0;
+            return "player";
         } else if (playerCard.getNumberValue().getPrimaryValue() < opponentCard.getNumberValue().getPrimaryValue()) {
-            return 1;
+            return "opponent";
         } else {
-            return 2;
+            return "tie";
         }
     }
 
@@ -103,16 +101,16 @@ public class SimplifiedWarGame {
             System.out.println("PLAYER CARD: " + playerCard.getSuit() + " " + playerCard.getNumberValue());
             System.out.println("OPPONENT CARD: " + opponentCard.getSuit() + " " + opponentCard.getNumberValue());
 
-            int roundWinner = war.determineRoundWinner(playerCard, opponentCard);
-            if (roundWinner == 0) {
+            String roundWinner = war.determineRoundWinner(playerCard, opponentCard);
+            if (Objects.equals(roundWinner, "player")) {
                 System.out.println("PLAYER WINS ROUND!!\n");
                 war.player.getWinningPile().addAll(war.winningStack);
                 war.winningStack.removeAllElements();
-            } else if (roundWinner == 1) {
+            } else if (Objects.equals(roundWinner, "opponent")) {
                 System.out.println("OPPONENT WINS ROUND!!\n");
                 war.opponent.getWinningPile().addAll(war.winningStack);
                 war.winningStack.removeAllElements();
-            } else if (roundWinner == 2) {
+            } else if (Objects.equals(roundWinner, "tie")) {
                 System.out.println("TIE ROUND, NO ONE WINS!!\n");
             }
 
