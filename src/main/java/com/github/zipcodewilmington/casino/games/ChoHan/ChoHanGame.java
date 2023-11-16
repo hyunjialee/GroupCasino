@@ -8,30 +8,27 @@ import com.github.zipcodewilmington.casino.games.GameUtils.Dice;
 import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import static jdk.internal.org.jline.utils.AttributedStringBuilder.append;
 
 public class ChoHanGame extends AbstractDiceGame implements GameInterface {
     private final IOConsole console = new IOConsole(AnsiColor.CYAN);
     private Dice dice;
-    private Dice dice2;
-    private int total;
-    private int betAmount;
-    private ChoHanPlayer player;
+    private List<PlayerInterface> players;
 
     public ChoHanGame() {
-        this.player = new ChoHanPlayer(player.getArcadeAccount());
         this.dice = new Dice();
-
+        this.players = new ArrayList<>();
     }
 
     @Override
     public void add(PlayerInterface player) {
+        this.players.add(player);
     }
 
     @Override
     public void remove(PlayerInterface player) {
+        this.players.remove(player);
     }
 
     @Override
@@ -46,56 +43,117 @@ public class ChoHanGame extends AbstractDiceGame implements GameInterface {
 
     @Override
     public int getPlayerBetInput() {
-        return 0;
+        return console.getIntegerInput(new StringBuilder()
+                .append("\nPlease place in your bet wager")
+                .toString());
     }
 
     @Override
     public String getPlayerInGameInput() {
-        return null;
+        return console.getStringInput(new StringBuilder()
+                .append("\nPlease guess if the dice rolls are even or odd")
+                .append("\n [ EVEN ], [ ODD ]")
+                .toString());
     }
 
     @Override
     public String getPlayerGuessInput() {
-        return null;
+        return console.getStringInput(new StringBuilder()
+                .append("\nPlease guess if the dice rolls are even or odd")
+                .append("\n\t [ EVEN ], [ ODD ]")
+                .toString());
     }
 
     @Override
     public String getPlayerWinInput() {
-        return null;
+        return console.getStringInput(new StringBuilder()
+                .append("\nCongratulations!")
+                .append("\nYou have guessed correctly!")
+                .append("\nThe game of Cho Han is over, would you like to play again?")
+                .append("\n\t [ CONTINUE ], [ QUIT ]")
+                .toString());
     }
 
     @Override
     public String getPlayerLostInput() {
-        return null;
+        return console.getStringInput(new StringBuilder()
+                .append("\n OH NOOOOOOO!")
+                .append("\nYou have guessed incorrectly!")
+                .append("\nThe game of Cho Han is over, would you like to play again?")
+                .append("\n\t [ CONTINUE ], [ QUIT ]")
+                .toString());
     }
     @Override
     public void run() {
         String gameInput;
         do {
             int bet = 0;
-            int diceValue = 0;
-            CasinoAccount player = this.player.getArcadeAccount();
+            CasinoAccount player = this.players.get(0).getArcadeAccount();
+            System.out.println("\n" +
+                    "   _____ _             _    _             \n" +
+                    "  / ____| |           | |  | |            \n" +
+                    " | |    | |__   ___   | |__| | __ _ _ __  \n" +
+                    " | |    | '_ \\ / _ \\  |  __  |/ _` | '_ \\ \n" +
+                    " | |____| | | | (_) | | |  | | (_| | | | |\n" +
+                    "  \\_____|_| |_|\\___/  |_|  |_|\\__,_|_| |_|\n" +
+                    "                                          \n" +
+                    "                                          \n" + "              _______.\n" +
+                    "   ______    | .   . |\\\n" +
+                    "  /     /\\   |   .   |.\\\n" +
+                    " /  '  /  \\  | .   . |.'|\n" +
+                    "/_____/. . \\ |_______|.'|\n" +
+                    "\\ . . \\    /  \\ ' .   \\'|\n" +
+                    " \\ . . \\  /    \\____'__\\|\n" +
+                    "  \\_____\\/" + "\n" +
+                    "  _____  _             _____                      \n" +
+                    " |  __ \\(_)           / ____|                     \n" +
+                    " | |  | |_  ___ ___  | |  __  __ _ _ __ ___   ___ \n" +
+                    " | |  | | |/ __/ _ \\ | | |_ |/ _` | '_ ` _ \\ / _ \\\n" +
+                    " | |__| | | (_|  __/ | |__| | (_| | | | | | |  __/\n" +
+                    " |_____/|_|\\___\\___|  \\_____|\\__,_|_| |_| |_|\\___|\n" +
+                    "                                                  \n" +
+                    "                                                  \n");
             gameInput = getPlayerBeginInput();
-        }
-        while (!gameInput.equalsIgnoreCase("continue"){
+
+            if (gameInput.equalsIgnoreCase("start")) {
+                dice = new Dice();
+
+                System.out.println("[ ? ]  [ ? ]");
+
+                // take in bet with PlayerBettingInput
+
+                bet += getPlayerBetInput();
+
+                // need guess statement here
+
+                int diceValue;
+                int x = dice.rollDice();
+                int y = dice.rollDice();
+
+                diceValue = x + y;
+
+                String guess = getPlayerGuessInput();
+                System.out.println("[ " + x + " ]  [ " + y + " ]");
+                if ((guess.equalsIgnoreCase("even") && diceValue % 2 == 0) || (guess.equalsIgnoreCase("odd") && diceValue % 2 != 0)) {
+                    player.setBalance(player.getBalance() + bet);
+                    System.out.println("\n" + player.getName() + "'s total balance: " + player.getBalance());
+                    gameInput = getPlayerWinInput();
 
 
-            //if (player wants to start)
-            // new Dice with [?][?]
-            // take in bet with PlayerBettingInput
+
+                    // guess number needs to be 2 4 6 8 10 12 to return win
+
+                } else {
+                    player.setBalance(player.getBalance() - bet);
+                    System.out.println("\n" + player.getName() + "'s total balance: " + player.getBalance());
+                    gameInput = getPlayerLostInput();
 
 
-            //while(!gameDecision is "Continue")
+                }
 
-            // ROLL THE DICE
-            // Give the option for even or odd decision
-            // if correct -> give winnings , print win statement and the value rolled
-            // if incorrect -> lose bettings, print lost statement and the value rolled
+            }
 
-            //
+        } while(!"quit".equalsIgnoreCase(gameInput));
 
-            //
-        } // while (!"quit" is equal to the game decision)
     }
-
 }

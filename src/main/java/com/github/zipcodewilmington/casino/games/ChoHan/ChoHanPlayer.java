@@ -13,7 +13,6 @@ public class ChoHanPlayer implements PlayerInterface {
     public CasinoAccount getArcadeAccount() {
         return this.casinoAccount;
     }
-
     @Override
     public <SomeReturnType> SomeReturnType play() {
         return null;

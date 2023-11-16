@@ -18,20 +18,20 @@ public class CasinoAccount {
     public String getName() {
         return name;
     }
-    public String setName() {
-        return this.name;
+    public void setName(String name) {
+        this.name = name;
     }
     public String getPassword(){
         return password;
     }
-    public String setPassword(){
-        return this.password;
+    public void setPassword(String password){
+        this.password = password;
     }
     public int getBalance(){
         return balance;
     }
-    public int setBalance(){
-        return this.balance;
+    public void setBalance(int newBalance){
+        this.balance = newBalance;
     }
     public String toString(){
         return "Account Name: " + name;
