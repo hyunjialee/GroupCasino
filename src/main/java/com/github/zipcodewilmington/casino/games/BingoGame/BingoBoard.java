@@ -1,10 +1,12 @@
 package com.github.zipcodewilmington.casino.games.BingoGame;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import com.github.zipcodewilmington.utils.AnsiColor;
+
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 // Visual of bingo board array style w/ rows and columns
 // multidimensional structure - String[][] / List<List<String>>
@@ -59,7 +61,7 @@ public class BingoBoard {
             // column evaluation
             final Character currentBingoLetter = letter.charAt(0);
             final List<String> currentBingoColumn = getColumn(currentBingoLetter);
-            final List<Boolean> columnValues = getValueOfKeys(currentBingoColumn);
+            final List<Boolean> columnValues = getValuesOfKeys(currentBingoColumn);
             final int numberOfUniqueColumns = new HashSet<>(columnValues).size();
             final boolean hasCellsMarkedColumn = columnValues.get(0);
             final boolean isHomogenousColumn = numberOfUniqueColumns == 1;
@@ -67,7 +69,7 @@ public class BingoBoard {
 
             // Row Evaluation
             final List<String> currentBingoRow = getRow(currentBingoRowIndex);
-            final List<Boolean> rowValues = getValueOfKeys(currentBingoRow);
+            final List<Boolean> rowValues = getValuesOfKeys(currentBingoRow);
             final int numberOfUniqueRowValues = new HashSet<>(rowValues).size();
             final boolean hasCellsMarkedRow = rowValues.get(0);
             final boolean isHomogenousRow = numberOfUniqueRowValues == 1;
@@ -81,23 +83,67 @@ public class BingoBoard {
         }
         return false;
         }
+
+        public List<Boolean> getValuesOfKeys(List<String> keys) {
+        final List<Boolean> values = new ArrayList<>();
+        for (String key : keys) {
+            final boolean value = bingoValues.get(key);
+            values.add(value);
+        }
+        return values;
     }
-//    public List<String> getColumn(char b) {
-//        return null;
-//    }
-//
-//    public boolean isWinner() {
-//        return false;
-//    }
-//
-//    public void markBoard(String s) {
-//    }
-//
-//    public List<String> getRow(int bingoRow) {
-//        return null;
-//    }
-//
-//    public List<List<String>> getMatrix() {
-//        return null;
-//    }
+
+    public List<List<String>> getMatrix() {
+        return Stream
+                .of("BINGO".split(""))
+                .map(letter -> getColumn(letter.charAt(0)))
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getColumn(Character letter) {
+        final List<String> list = new ArrayList<>();
+        for (String value : bingoValues.keySet()) {
+            if (value.contains(letter.toString().toUpperCase())) {
+                list.add(value);
+            }
+        }
+        return list;
+    }
+
+    public List<String> getRow (int index) {
+        final List<String> row = new ArrayList<>();
+        final List<List<String>> matrix = getMatrix();
+        for (final List<String> column : matrix) {
+            final String bingoValue = column.get(index);
+            row.add(bingoValue);
+        }
+        return row;
+    }
+
+    public boolean markBoard(String bingoValue) {
+        boolean hasValue = bingoValues.containsKey(bingoValue);
+        if (hasValue) {
+            bingoValues.put(bingoValue, true);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        final List<List<String>> columns = getMatrix();
+        final List<List<String>> rows = new ListTransposer<>(columns).transpose();
+        final StringJoiner rowString = new StringJoiner("||");
+        for (final List<String> row : rows) {
+            for (String key :row) {
+                final boolean value = bingoValues.get(key);
+                String displayValue = key + "," + value;
+                displayValue = value ? AnsiColor.RED.getColor() + displayValue : displayValue;
+                displayValue += AnsiColor.GREEN.getColor();
+                rowString.add(displayValue);
+            }
+            rowString.add("\n");
+        }
+        return "||" + rowString;
+    }
 }
