@@ -7,6 +7,7 @@ import com.github.zipcodewilmington.casino.games.GameUtils.AbstractRandomGame;
 import com.github.zipcodewilmington.casino.games.GameUtils.Dice;
 import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
+//import sun.jvm.hotspot.utilities.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,9 +146,8 @@ public class ChoHanGame extends AbstractRandomGame implements GameInterface {
                     player.setBalance(player.getBalance() - bet);
                     System.out.println("\n" + player.getName() + "'s total balance: " + player.getBalance());
                     gameInput = getPlayerLostInput();
-                    
-                }
 
+                }
             }
 
         } while(!"quit".equalsIgnoreCase(gameInput));

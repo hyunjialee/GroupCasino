@@ -58,6 +58,7 @@ public class Casino implements Runnable {
                 } else {
                     System.out.println("This accounts exists, please try again");
                 }
+
             }
         } while (!"logout".equalsIgnoreCase(arcadeDashBoardInput));
         casinoAccountManager.saveToFile();

@@ -1,5 +1,6 @@
 package com.github.zipcodewilmington.dicetest;
 
+import com.github.zipcodewilmington.casino.games.GameUtils.Dice;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
@@ -10,9 +11,12 @@ class DiceTest {
     @Test
     void rollDice() {
         // rolls a number greater than 0, less than 7
-        int expected = 0;
-        int actual = 0;
+
+        Dice dice = new Dice();
+        int expected = 6;
+        int actual = dice.rollDice();
         Assert.assertEquals(expected, actual);
+
     }
 
     @Test
