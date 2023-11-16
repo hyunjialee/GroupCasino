@@ -15,7 +15,7 @@ public class Dice {
 
     public int rollDice(){
         int value = rand.nextInt(6) + 1;
-        return getValue();
+        return value;
     }
 
     public int getValue(){
