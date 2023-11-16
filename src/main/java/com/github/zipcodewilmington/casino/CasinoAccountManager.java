@@ -1,5 +1,12 @@
 package com.github.zipcodewilmington.casino;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 /**
  * Created by leon on 7/21/2020.
  * `ArcadeAccountManager` stores, manages, and retrieves `ArcadeAccount` objects
@@ -11,11 +18,18 @@ public class CasinoAccountManager {
      * @param accountPassword password of account to be returned
      * @return `ArcadeAccount` with specified `accountName` and `accountPassword`
      */
+    private List<CasinoAccount> casinoAccountList;
+
+    public CasinoAccountManager(){
+        this.casinoAccountList = new ArrayList<>();
+        readFile();
+    }
     public CasinoAccount getAccount(String accountName, String accountPassword) {
-        String currentMethodName = new Object(){}.getClass().getEnclosingMethod().getName();
-        String currentClassName = getClass().getName();
-        String errorMessage = "Method with name [ %s ], defined in class with name [ %s ] has  not yet been implemented";
-        throw new RuntimeException(String.format(errorMessage, currentMethodName, currentClassName));
+        for (CasinoAccount account : casinoAccountList){
+            if (account.getName().equals(accountName) && account.getPassword().equals(accountPassword)) {
+                return account;
+            }
+        } return null;
     }
 
     /**
@@ -26,10 +40,11 @@ public class CasinoAccountManager {
      * @return new instance of `ArcadeAccount` with specified `accountName` and `accountPassword`
      */
     public CasinoAccount createAccount(String accountName, String accountPassword) {
-        String currentMethodName = new Object(){}.getClass().getEnclosingMethod().getName();
-        String currentClassName = getClass().getName();
-        String errorMessage = "Method with name [ %s ], defined in class with name [ %s ] has  not yet been implemented";
-        throw new RuntimeException(String.format(errorMessage, currentMethodName, currentClassName));
+        CasinoAccount newAccount = new CasinoAccount(accountName, accountPassword, 1000);
+        if(this.casinoAccountList.contains(newAccount)) {
+            return null;
+        }
+        return newAccount;
     }
 
     /**
@@ -38,9 +53,55 @@ public class CasinoAccountManager {
      * @param casinoAccount the arcadeAccount to be added to `this.getArcadeAccountList()`
      */
     public void registerAccount(CasinoAccount casinoAccount) {
-        String currentMethodName = new Object(){}.getClass().getEnclosingMethod().getName();
-        String currentClassName = getClass().getName();
-        String errorMessage = "Method with name [ %s ], defined in class with name [ %s ] has  not yet been implemented";
-        throw new RuntimeException(String.format(errorMessage, currentMethodName, currentClassName));
+        this.casinoAccountList.add(casinoAccount);
+    }
+
+    private void readFile() {
+        try {
+            String input;
+            String[] elements;
+            String name;
+            String password;
+            int balance;
+            casinoAccountList = new ArrayList<>();
+
+            // reading file
+            Scanner scanner = new Scanner(new File("accounts.txt"));
+
+            while (scanner.hasNext()) {
+                // parsing file
+                input = scanner.nextLine();
+                elements = input.split(",");
+                name = elements[0];
+                password = elements[1];
+                balance = Integer.parseInt(elements[2]);
+
+                // creating account from file info
+                CasinoAccount account = new CasinoAccount(name, password, balance);
+
+                // saving account into account manager's accounts.
+                casinoAccountList.add(account);
+
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!");
+        }
+    }
+
+    public void saveToFile(){
+        try {
+            PrintWriter fileOut = new PrintWriter("accounts.txt");
+            for(CasinoAccount a : casinoAccountList){
+                fileOut.println(a.getName() + "," + a.getPassword() + "," + a.getBalance());
+            }
+
+            fileOut.close();
+
+        }
+        catch (FileNotFoundException e){
+            System.out.println("File not found!");
+        }
+
     }
 }
+
