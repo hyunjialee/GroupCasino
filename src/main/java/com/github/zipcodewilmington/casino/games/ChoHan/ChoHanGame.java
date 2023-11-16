@@ -3,7 +3,7 @@ package com.github.zipcodewilmington.casino.games.ChoHan;
 import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
-import com.github.zipcodewilmington.casino.games.GameUtils.AbstractDiceGame;
+import com.github.zipcodewilmington.casino.games.GameUtils.AbstractRandomGame;
 import com.github.zipcodewilmington.casino.games.GameUtils.Dice;
 import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
@@ -11,7 +11,7 @@ import com.github.zipcodewilmington.utils.IOConsole;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChoHanGame extends AbstractDiceGame implements GameInterface {
+public class ChoHanGame extends AbstractRandomGame implements GameInterface {
     private final IOConsole console = new IOConsole(AnsiColor.CYAN);
     private Dice dice;
     private List<PlayerInterface> players;
