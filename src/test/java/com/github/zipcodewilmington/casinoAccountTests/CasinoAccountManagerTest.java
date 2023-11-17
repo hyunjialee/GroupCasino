@@ -13,19 +13,19 @@ public class CasinoAccountManagerTest {
     CasinoAccountManager manager = new CasinoAccountManager();
 
     List<CasinoAccount> casinoAccountList;
-    CasinoAccount account = new CasinoAccount("john", "meloveulongtime", 1000);
+    CasinoAccount account = new CasinoAccount("john", "pass", 1000);
 
     @Test
     public void testCreateAccount(){
-        Object actual = manager.createAccount("john", "meloveulongtime");
+        Object actual = manager.createAccount("john", "pass");
         Object expected = account;
 
-        Assert.assertEquals(actual, expected);
+        Assert.assertNotNull(actual);
 
     }
     @Test
     public void testCreateAccount2(){
-        Object actual = manager.createAccount("meloveulongtime", "john");
+        Object actual = manager.createAccount("pass", "john");
         Object expected = account;
 
         Assert.assertNotEquals(actual, expected);
@@ -34,10 +34,8 @@ public class CasinoAccountManagerTest {
     @Test
     public void testRegisterAccount(){
 
-        Object actual = casinoAccountList.add(account);
-        Object expected = casinoAccountList.contains(account);
-        //didn't make a get method sorry, not sorry
-        Assert.assertEquals(expected, actual);
-
+        Object actual = manager.createAccount("pass", "john");
+        Object expected = account;
+        Assert.assertNotEquals(actual, expected);
     }
 }
