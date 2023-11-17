@@ -1,20 +1,26 @@
-package com.github.zipcodewilmington.casino.games.ChoHan;
+package com.github.zipcodewilmington.casino.games.numberguess;
 
 import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.PlayerInterface;
 
-public class ChoHanPlayer implements PlayerInterface {
-    private CasinoAccount casinoAccount;
+public class Dealer implements PlayerInterface {
 
-    public ChoHanPlayer(CasinoAccount casinoAccount){
+
+
+    private CasinoAccount casinoAccount;
+    public Dealer(CasinoAccount casinoAccount){ // this is giving the deal a
         this.casinoAccount = casinoAccount;
+
     }
+
     @Override
     public CasinoAccount getArcadeAccount() {
-        return this.casinoAccount;
+        return casinoAccount;
     }
+
     @Override
     public <SomeReturnType> SomeReturnType play() {
         return null;
     }
 }
+
