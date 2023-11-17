@@ -1,34 +1,54 @@
 package com.github.zipcodewilmington.casino.games.SimplifiedWar;
 
+import com.github.zipcodewilmington.casino.CasinoAccount;
+import com.github.zipcodewilmington.casino.GameInterface;
+import com.github.zipcodewilmington.casino.PlayerInterface;
+import com.github.zipcodewilmington.casino.games.GameUtils.CardClass.AbstractCardGame;
 import com.github.zipcodewilmington.casino.games.GameUtils.CardClass.Cards;
 import com.github.zipcodewilmington.casino.games.GameUtils.CardClass.Deck;
+import com.github.zipcodewilmington.utils.AnsiColor;
+import com.github.zipcodewilmington.utils.IOConsole;
 
-import java.util.Collections;
-import java.util.Objects;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
-public class SimplifiedWarGame {
-
-    private Deck deck;
-    private SimplifiedWarPlayer player;
-    private SimplifiedWarPlayer opponent;
-    private Stack<Cards> playerHand;
-    private Stack<Cards> opponentHand;
-    private Stack<Cards> winningStack;
+public class SimplifiedWarGame extends AbstractCardGame implements GameInterface {
+    private final IOConsole console = new IOConsole(AnsiColor.PURPLE);
+    private final Deck deck;
+    private final List<SimplifiedWarPlayer> players = new ArrayList<>();
+    private final Stack<Cards> winningStack;
     private boolean autoPlay;
 
     public SimplifiedWarGame() {
         this.deck = new Deck();
-        this.player = new SimplifiedWarPlayer();
-        this.opponent = new SimplifiedWarPlayer();
-        this.playerHand = player.getHand();
-        this.opponentHand = opponent.getHand();
         this.winningStack = new Stack<>();
         this.autoPlay = false;
     }
 
-    public boolean dealHands() {
+    @Override
+    public void add(PlayerInterface player) {
+        this.players.add((SimplifiedWarPlayer) player);
+        this.players.add(new SimplifiedWarPlayer(new CasinoAccount("", "", 100)));
+    }
+
+    @Override
+    public void remove(PlayerInterface player) {
+        this.players.remove((SimplifiedWarPlayer) player);
+    }
+
+    public boolean promptAutoPlay() {
+        String input = console.getStringInput("\nENABLE AUTOPLAY? [ Y ] [ N ]");
+        return input.equalsIgnoreCase("Y");
+    }
+
+    private int getAutoPlayBet(int bet, CasinoAccount casinoPlayer) {
+        if (autoPlay) {
+            bet = console.getIntegerInput("HOW MUCH WOULD YOU LIKE TO BET? WINNER GETS 3X FOR AUTOPLAY");
+            casinoPlayer.setBalance(casinoPlayer.getBalance() - bet);
+            bet *= 3;
+        }
+        return bet;
+    }
+    public boolean dealHands(Stack<Cards> playerHand, Stack<Cards> opponentHand) {
         int deckSize = deck.deckOfCards.size();
         for (int i = 0; i < deckSize; i++) {
             if (i % 2 == 0) {
@@ -37,7 +57,6 @@ public class SimplifiedWarGame {
                 opponentHand.push(deck.draw());
             }
         }
-
         return (playerHand.size() == opponentHand.size());
     }
 
@@ -55,7 +74,7 @@ public class SimplifiedWarGame {
         }
     }
 
-    public void checkHandsAddWins() {
+    public void checkHandsAddWins(SimplifiedWarPlayer player, SimplifiedWarPlayer opponent) {
         addWinsToHandAndShuffle(player);
         addWinsToHandAndShuffle(opponent);
     }
@@ -69,68 +88,90 @@ public class SimplifiedWarGame {
     }
 
     public boolean promptExit() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("\nHIT ENTER TO CONTINUE || HIT X TO EXIT");
-        String input = scanner.nextLine();
+        String input = console.getStringInput("\n[ ENTER TO CONTINUE ] [ X TO EXIT ]");
         return input.equalsIgnoreCase("X");
     }
 
-    public boolean promptAutoPlay() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("\nENABLE AUTOPLAY? Y/N");
-        String input = scanner.nextLine();
-        return input.equalsIgnoreCase("Y");
-    }
+    @Override
+    public void run() {
+        SimplifiedWarPlayer player = players.get(0);
+        CasinoAccount casinoPlayer = player.getArcadeAccount();
+        SimplifiedWarPlayer opponent = new SimplifiedWarPlayer(new CasinoAccount("", "", 100));
+        Stack<Cards> playerHand = player.getHand();
+        Stack<Cards> opponentHand = opponent.getHand();
+        int bet = 0;
+
+        System.out.println("" +
+                "__/\\\\\\______________/\\\\\\_______________/\\\\\\\\\\\\\\\\\\_________________/\\\\\\\\\\\\\\\\\\_____        \n" +
+                " _\\/\\\\\\_____________\\/\\\\\\_____________/\\\\\\\\\\\\\\\\\\\\\\\\\\_____________/\\\\\\///////\\\\\\___       \n" +
+                "  _\\/\\\\\\_____________\\/\\\\\\____________/\\\\\\/////////\\\\\\___________\\/\\\\\\_____\\/\\\\\\___      \n" +
+                "   _\\//\\\\\\____/\\\\\\____/\\\\\\____________\\/\\\\\\_______\\/\\\\\\___________\\/\\\\\\\\\\\\\\\\\\\\\\/____     \n" +
+                "    __\\//\\\\\\__/\\\\\\\\\\__/\\\\\\_____________\\/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\___________\\/\\\\\\//////\\\\\\____    \n" +
+                "     ___\\//\\\\\\/\\\\\\/\\\\\\/\\\\\\______________\\/\\\\\\/////////\\\\\\___________\\/\\\\\\____\\//\\\\\\___   \n" +
+                "      ____\\//\\\\\\\\\\\\//\\\\\\\\\\_______________\\/\\\\\\_______\\/\\\\\\___________\\/\\\\\\_____\\//\\\\\\__  \n" +
+                "       _____\\//\\\\\\__\\//\\\\\\________________\\/\\\\\\_______\\/\\\\\\___________\\/\\\\\\______\\//\\\\\\_ \n" +
+                "        ______\\///____\\///_________________\\///________\\///____________\\///________\\///__");
 
 
-    public static void main(String[] args) {
-        SimplifiedWarGame war = new SimplifiedWarGame();
+        autoPlay = promptAutoPlay();
+        bet = getAutoPlayBet(bet, casinoPlayer);
 
-        war.autoPlay = war.promptAutoPlay();
+        // IF AUTOPLAY TRUE --> HOW MUCH DO YOU WANT TO BET? (IF PLAYER WINS, TRIPLE AMOUNT WON)
+        // IF AUTOPLAY FALSE --> BET PER ROUND? (IF PLAYER WINS, DOUBLE AMOUNT WON)
 
-        war.deck.shuffle();
-        war.dealHands();
+        deck.shuffle();
+        dealHands(playerHand, opponentHand);
 
-        int turns = 0;
-        while (war.hasCards(war.player) && war.hasCards(war.opponent)) {
-            Cards playerCard = war.playerHand.pop();
-            war.winningStack.push(playerCard);
-            Cards opponentCard = war.opponentHand.pop();
-            war.winningStack.push(opponentCard);
+        int turns = 1;
+        while (hasCards(player) && hasCards(opponent)) {
+            System.out.println("\n============ ROUND " + turns + " ============");
+            System.out.println("" +
+                    ".------.     .------.     .------.\n" +
+                    "|W.--. |     |A.--. |     |R.--. |\n" +
+                    "| :/ \\:|     | (\\/) |     | :(): |\n" +
+                    "| :\\ /:|     | :\\/: |     | ()() |\n" +
+                    "| '--'W|     | '--'A|     | '--'R|\n" +
+                    "`------'     `------'     `------'");
+            Cards playerCard = playerHand.pop();
+            winningStack.push(playerCard);
+            Cards opponentCard = opponentHand.pop();
+            winningStack.push(opponentCard);
 
-            System.out.println("PLAYER CARD: " + playerCard.getSuit() + " " + playerCard.getNumberValue());
-            System.out.println("OPPONENT CARD: " + opponentCard.getSuit() + " " + opponentCard.getNumberValue());
+            System.out.println("PLAYER CARD:   " + playerCard.getNumberValue() + " OF " + playerCard.getSuit());
+            System.out.println("OPPONENT CARD: " +  opponentCard.getNumberValue()+ " OF " + opponentCard.getSuit());
 
-            String roundWinner = war.determineRoundWinner(playerCard, opponentCard);
+            String roundWinner = determineRoundWinner(playerCard, opponentCard);
             if (Objects.equals(roundWinner, "player")) {
-                System.out.println("PLAYER WINS ROUND!!\n");
-                war.player.getWinningPile().addAll(war.winningStack);
-                war.winningStack.removeAllElements();
+                System.out.println("\n>> PLAYER WINS ROUND <<\n");
+                player.getWinningPile().addAll(winningStack);
+                winningStack.removeAllElements();
             } else if (Objects.equals(roundWinner, "opponent")) {
-                System.out.println("OPPONENT WINS ROUND!!\n");
-                war.opponent.getWinningPile().addAll(war.winningStack);
-                war.winningStack.removeAllElements();
+                System.out.println("\n>> OPPONENT WINS ROUND <<\n");
+                opponent.getWinningPile().addAll(winningStack);
+                winningStack.removeAllElements();
             } else if (Objects.equals(roundWinner, "tie")) {
-                System.out.println("TIE ROUND, NO ONE WINS!!\n");
+                System.out.println("\n>> TIE ROUND <<\n");
             }
 
-            System.out.println("PLAYER HAND: " + (war.playerHand.size() + war.player.getWinningPile().size()));
-            System.out.println("OPPONENT HAND: " + (war.opponentHand.size() + war.opponent.getWinningPile().size()));
+            System.out.println("PLAYER HAND:   " + (playerHand.size() + player.getWinningPile().size()));
+            System.out.println("OPPONENT HAND: " + (opponentHand.size() + opponent.getWinningPile().size()));
 
-            war.checkHandsAddWins();
+            checkHandsAddWins(player, opponent);
 
             turns++;
 
-            if (!war.autoPlay) {
-                if (war.promptExit()) {
+            if (!autoPlay) {
+                if (promptExit()) {
                     break;
                 }
             }
 
+            if (!hasCards(opponent)) {
+                casinoPlayer.setBalance(casinoPlayer.getBalance() + bet);
+                System.out.println("\nCONGRATULATIONS, YOU WIN!! YOUR BALANCE IS NOW: " + casinoPlayer.getBalance());
+            } else if (!hasCards(player)) {
+                System.out.println("\nTOO BAD, OPPONENT WINS!! YOUR BALANCE IS NOW: " + casinoPlayer.getBalance());
+            }
         }
-
-        System.out.println("TOTAL TURNS: " + turns);
-
     }
-
 }

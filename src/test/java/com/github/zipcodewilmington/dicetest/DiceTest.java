@@ -9,22 +9,37 @@ import static org.junit.jupiter.api.Assertions.*;
 class DiceTest {
 
     @Test
-    void rollDice() {
-        // rolls a number greater than 0, less than 7
+    void testRollDice() {
 
         Dice dice = new Dice();
-        int expected = 6;
-        int actual = dice.rollDice();
-        Assert.assertEquals(expected, actual);
+        int result = dice.rollDice();
+
+        Assert.assertTrue(result < 7);
 
     }
-
     @Test
-    void getValue() {
-        // gets value of the dice;
+    void testRollDice2() {
 
-        int expected = 0;
-        int actual = 0;
-        Assert.assertEquals(expected, actual);
+        Dice dice = new Dice();
+        int result = dice.rollDice();
+
+        Assert.assertFalse(result < 0);
+
+    }
+    @Test
+    void testRollDice3() {
+
+        Dice dice = new Dice();
+        int result = dice.rollDice();
+
+        Assert.assertFalse(result > 7);
+
+    }    @Test
+    void testRollDice4() {
+
+        Dice dice = new Dice();
+        int result = dice.rollDice();
+
+        Assert.assertTrue(result > 0);
     }
 }

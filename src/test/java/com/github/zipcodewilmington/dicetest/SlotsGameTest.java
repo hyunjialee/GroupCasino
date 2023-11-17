@@ -1,17 +1,16 @@
 package com.github.zipcodewilmington.dicetest;
 
 import com.github.zipcodewilmington.casino.CasinoAccount;
-import com.github.zipcodewilmington.casino.games.Craps.CrapsGame;
-import com.github.zipcodewilmington.casino.games.Craps.CrapsPlayer;
 import com.github.zipcodewilmington.casino.games.GameUtils.Dice;
+import com.github.zipcodewilmington.casino.games.slots.SlotsGame;
+import com.github.zipcodewilmington.casino.games.slots.SlotsPlayer;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-public class CrapsGameTest {
+public class SlotsGameTest {
     CasinoAccount account;
-    CrapsPlayer player = new CrapsPlayer(account);
-    CrapsGame game = new CrapsGame();
-
+    com.github.zipcodewilmington.casino.games.slots.SlotsPlayer player = new com.github.zipcodewilmington.casino.games.slots.SlotsPlayer(account);
+    SlotsGame game = new SlotsGame();
 
     @Test
     void testRollDice() {
@@ -22,9 +21,8 @@ public class CrapsGameTest {
         Assert.assertTrue(result < 7);
 
     }
-
     @Test
-    public void testAdd() {
+    public void testAdd(){
         game.add(player);
 
         Assert.assertTrue(game.getList().contains(player));
@@ -32,22 +30,21 @@ public class CrapsGameTest {
     }
 
     @Test
-    public void testRemove() {
+    public void testRemove(){
         game.add(player);
         game.remove(player);
         Assert.assertTrue(game.getList().isEmpty());
     }
 
     @Test
-    public void testAdd2() {
+    public void testAdd2(){
         game.add(player);
         Assert.assertFalse(game.getList().isEmpty());
     }
-
     @Test
-    public void testCrapsConstructor() {
+    public void testChohanConstructor() {
         CasinoAccount account = new CasinoAccount("bob", "the", 123);
-        CrapsPlayer player2 = new CrapsPlayer(account);
+        SlotsPlayer player2 = new SlotsPlayer(account);
 
         Assert.assertEquals(player2.getArcadeAccount(), account);
 
@@ -55,7 +52,7 @@ public class CrapsGameTest {
 
     @Test
     public void testGetAccount() {
-        CrapsPlayer player3 = new CrapsPlayer(null);
+        SlotsPlayer player3 = new SlotsPlayer(null);
 
         Assert.assertNull(player3.getArcadeAccount());
 
@@ -64,32 +61,11 @@ public class CrapsGameTest {
     @Test
     public void testGetAccount2() {
         CasinoAccount account = new CasinoAccount("bob", "1", 123);
-        CrapsPlayer player3 = new CrapsPlayer(account);
+        SlotsPlayer player3 = new SlotsPlayer(account);
 
         Assert.assertNotNull(player3.getArcadeAccount());
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
