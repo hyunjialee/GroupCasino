@@ -36,7 +36,8 @@ private NumberGuessPlayer numberGuessPlayer; //declaration the class
 
 
     @Test
-    public void  testHand() {
+    public void  testnumberGuessRun() {
+        numberGuessGame.run();// this take the game and run it
 
 
 
@@ -44,7 +45,7 @@ private NumberGuessPlayer numberGuessPlayer; //declaration the class
     }
 
     @Test
-    public void testThatHandSizeIsTwoUponStart(){
+    public void testThatPlayerHandSizeIsTwoUponStart(){
 
         numberGuessGame.run();// this take the game and run it
 
@@ -52,6 +53,16 @@ private NumberGuessPlayer numberGuessPlayer; //declaration the class
         int handSize = hand.size();// checking if the actual hand size is 2
         int exceptedHandSize = 2;
         Assert.assertEquals(handSize, exceptedHandSize); // checking that we get two cards when the game start.
+    }
+    @Test
+    public void testThatDealerHandSizeIsTwoUponStart(){
+
+        numberGuessGame.run();// this take the game and run it
+
+        ArrayList<Cards> dealerHand = numberGuessGame.getDealerHand(); // hand getter
+        int dealerHandSize = dealerHand.size();// checking if the actual hand size is 2
+        int exceptedDealerHandSize = 2;
+        Assert.assertEquals(dealerHandSize, exceptedDealerHandSize); // checking that we get two cards when the game start.
     }
 
     @Test

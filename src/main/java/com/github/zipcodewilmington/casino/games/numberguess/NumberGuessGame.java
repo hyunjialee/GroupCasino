@@ -62,6 +62,15 @@ public class NumberGuessGame {
         hand.add(card2);
 
     }
+    public void  startingDealerHand(Deck deck){ // this just dose it once in the begain.
+        // pop 2 cards from deck
+        Cards card3 = deck.draw();
+        dealerHand.add(card3);
+        Cards card4 = deck.draw();
+        // put card in players hand
+        dealerHand.add(card4);
+
+    }
 //    public void  startingDealerHand(Deck deck){ // this just dose it once in the begain.
 //        // pop 2 cards from deck
 //        Cards card1 = deck.draw();
@@ -93,11 +102,14 @@ public class NumberGuessGame {
         deck = new Deck();
         deck.shuffle();
         hand = new ArrayList<>();
+        dealerHand = new ArrayList<>();
 
+        startingDealerHand(deck);
        startingHand(deck); // using my method
-        System.out.println("this is the Player Hand" + hand.get(0).getNumberValue());
-        System.out.println("last cards in hand" + hand.get(hand.size()-1).getNumberValue());
-
+        System.out.println("this is the Player Hand " + hand.get(0).getNumberValue() + " " + hand.getFirst().getSuit());
+        System.out.println("last cards in Player Hand " + hand.get(hand.size()-1).getNumberValue());
+        System.out.println("this is the Dealer Hand " + dealerHand.get(0).getNumberValue() + " " + hand.getFirst().getSuit());
+        System.out.println("last cards in Dealer hand " + dealerHand.get(hand.size()-1).getNumberValue());
         }
 
     }
