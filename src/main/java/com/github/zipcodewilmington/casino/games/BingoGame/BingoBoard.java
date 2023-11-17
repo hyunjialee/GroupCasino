@@ -27,43 +27,43 @@ import java.util.concurrent.ThreadLocalRandom;
 //                (O15,true)    - 5
 //
 
-
-
-public class BingoBoard {
-    private final Map<String, Boolean> bingoValues;
-
-
-    // Creating HashMap that has random values to place on bingo board
-    public BingoBoard() {
-        this.bingoValues = new HashMap<>();
-        final String[] bingoLetters = "BINGO".split("");
-        for (String letter : bingoLetters) {
-            for (int i = 0; i < 5; i++) {
-               String bingoValue;
-               do {
-                   final Integer randomValue = ThreadLocalRandom.current().nextInt(1, 75);
-                   bingoValue = letter + randomValue;
-               } while (bingoValues.keySet().contains(bingoValue));
-               bingoValues.put(bingoValue, false);
-
-            }
-        }
-
-    }
-
-    public boolean isWinner() {
-        final String[] bingoLetters = "BINGO".split("");
-        for (int currentBingoRowIndex = 0; currentBingoRowIndex < bingoLetters.length; currentBingoRowIndex++) {
-            final String letter = bingoLetters[currentBingoRowIndex];
-
-            // column evaluation
-            final Character currentBingoLetter = letter.charAt(0);
-            final List<String> currentBingoColumn = getColumn(currentBingoLetter);
-            final List<Boolean> columnValues = getValueOfKeys(currentBingoColumn);
-            final int numberOfUniqueColumns = new HashSet<>(columnValues).size();
-
-        }
-    }
+//
+//
+//public class BingoBoard {
+//    private final Map<String, Boolean> bingoValues;
+//
+//
+//    // Creating HashMap that has random values to place on bingo board
+//    public BingoBoard() {
+//        this.bingoValues = new HashMap<>();
+//        final String[] bingoLetters = "BINGO".split("");
+//        for (String letter : bingoLetters) {
+//            for (int i = 0; i < 5; i++) {
+//               String bingoValue;
+//               do {
+//                   final Integer randomValue = ThreadLocalRandom.current().nextInt(1, 75);
+//                   bingoValue = letter + randomValue;
+//               } while (bingoValues.keySet().contains(bingoValue));
+//               bingoValues.put(bingoValue, false);
+//
+//            }
+//        }
+//
+//    }
+//
+//    public boolean isWinner() {
+//        final String[] bingoLetters = "BINGO".split("");
+//        for (int currentBingoRowIndex = 0; currentBingoRowIndex < bingoLetters.length; currentBingoRowIndex++) {
+//            final String letter = bingoLetters[currentBingoRowIndex];
+//
+//            // column evaluation
+//            final Character currentBingoLetter = letter.charAt(0);
+//            final List<String> currentBingoColumn = getColumn(currentBingoLetter);
+//            final List<Boolean> columnValues = getValueOfKeys(currentBingoColumn);
+//            final int numberOfUniqueColumns = new HashSet<>(columnValues).size();
+//
+//        }
+//    }
 //    public List<String> getColumn(char b) {
 //        return null;
 //    }
@@ -82,4 +82,4 @@ public class BingoBoard {
 //    public List<List<String>> getMatrix() {
 //        return null;
 //    }
-}
+//}
