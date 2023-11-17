@@ -1,12 +1,13 @@
 package com.github.zipcodewilmington.casino.games.BingoGame;
 
 import com.github.zipcodewilmington.utils.AnsiColor;
+import com.github.zipcodewilmington.utils.ListTransposer;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 
 // Visual of bingo board array style w/ rows and columns
 // multidimensional structure - String[][] / List<List<String>>
@@ -53,6 +54,8 @@ public class BingoBoard {
 
     }
 
+    // Existing logic for checking winning conditions
+
     public boolean isWinner() {
         final String[] bingoLetters = "BINGO".split("");
         for (int currentBingoRowIndex = 0; currentBingoRowIndex < bingoLetters.length; currentBingoRowIndex++) {
@@ -84,7 +87,8 @@ public class BingoBoard {
         return false;
         }
 
-        public List<Boolean> getValuesOfKeys(List<String> keys) {
+    // Getting values of keys for cells aka BingoValues
+    public List<Boolean> getValuesOfKeys(List<String> keys) {
         final List<Boolean> values = new ArrayList<>();
         for (String key : keys) {
             final boolean value = bingoValues.get(key);
@@ -93,6 +97,9 @@ public class BingoBoard {
         return values;
     }
 
+    // Creating the matrix
+    // Creating a stream of letters spelling out BINGO
+    // Then splitting them up to map each letter to a column
     public List<List<String>> getMatrix() {
         return Stream
                 .of("BINGO".split(""))
@@ -100,6 +107,7 @@ public class BingoBoard {
                 .collect(Collectors.toList());
     }
 
+    // Existing logic for getting a column
     public List<String> getColumn(Character letter) {
         final List<String> list = new ArrayList<>();
         for (String value : bingoValues.keySet()) {
@@ -110,6 +118,7 @@ public class BingoBoard {
         return list;
     }
 
+    // Your existing logic for getting a row
     public List<String> getRow (int index) {
         final List<String> row = new ArrayList<>();
         final List<List<String>> matrix = getMatrix();
@@ -120,6 +129,7 @@ public class BingoBoard {
         return row;
     }
 
+    // Existing logic for marking the board
     public boolean markBoard(String bingoValue) {
         boolean hasValue = bingoValues.containsKey(bingoValue);
         if (hasValue) {
@@ -129,13 +139,15 @@ public class BingoBoard {
         return false;
     }
 
+
+    // Creating a string representation of the board
     @Override
     public String toString() {
         final List<List<String>> columns = getMatrix();
         final List<List<String>> rows = new ListTransposer<>(columns).transpose();
         final StringJoiner rowString = new StringJoiner("||");
         for (final List<String> row : rows) {
-            for (String key :row) {
+            for (String key : row) {
                 final boolean value = bingoValues.get(key);
                 String displayValue = key + "," + value;
                 displayValue = value ? AnsiColor.RED.getColor() + displayValue : displayValue;
