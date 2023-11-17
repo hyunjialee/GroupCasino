@@ -89,13 +89,22 @@ public class NumberGuessGame {
     public int checkHandValue() {
         int handSum = 0;
         for( Cards cards:hand){
-          handSum = cards.getNumberValue().ordinal()
+          handSum = cards.getNumberValue().getSecondaryValue()
                   +  cards.getNumberValue().getSecondaryValue() ;
 //something doesn't add up right
         }
         return handSum;
     }
 
+    public int checkDealerHandValue() {
+        int DealerhandSum = 0;
+        for( Cards cards:dealerHand){
+            DealerhandSum = cards.getNumberValue().getSecondaryValue()
+                    +  cards.getNumberValue().getSecondaryValue() ;
+//something doesn't add up right
+        }
+        return DealerhandSum;
+    }
 
 
 
@@ -113,9 +122,9 @@ public class NumberGuessGame {
        startingHand(deck); // using my method
         System.out.println("this is the Player Hand " + hand.get(0).getNumberValue() + " " + hand.getFirst().getSuit());
         System.out.println("last cards in Player Hand " + hand.get(hand.size()-1).getNumberValue()+ " " + hand.getFirst().getSuit());
-        //System.out.println("this is the Dealer Hand " + dealerHand.get(0).getNumberValue() + " " + hand.getFirst().getSuit());
-       // System.out.println("last cards in Dealer hand " + dealerHand.get(hand.size()-1).getNumberValue());
-        System.out.println( " your at " +  checkHandValue() );
+        System.out.println("this is the Dealer Hand " + dealerHand.get(0).getNumberValue() + " " + hand.getFirst().getSuit());
+        System.out.println("last cards in Dealer hand " + dealerHand.get(hand.size()-1).getNumberValue());
+        System.out.println( " your at " +  checkHandValue() + "\ndealer is at " + checkDealerHandValue());
     }
 
     }

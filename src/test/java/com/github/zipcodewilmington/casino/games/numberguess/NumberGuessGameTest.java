@@ -94,6 +94,20 @@ private NumberGuessPlayer numberGuessPlayer; //declaration the class
     Assert.assertTrue((actual< max)); // the max
     Assert.assertTrue((actual>= min )); // the lows
     }
+    @Test
+    public  void  checkDealerHandValue(){
+        numberGuessGame.run();
+        ArrayList<Cards> dealerHand = numberGuessGame.getDealerHand(); // Deelerhand getter
+        int startingDealerHandValue = numberGuessGame.checkDealerHandValue();
+        int min = 2;
+        int max = 30;
+
+
+        Integer actual = startingDealerHandValue;
+
+        Assert.assertTrue((actual< max)); // the max
+        Assert.assertTrue((actual>= min )); // the lows
+    }
 
   //  @Test
 //    public void  testStand(){
@@ -110,16 +124,25 @@ private NumberGuessPlayer numberGuessPlayer; //declaration the class
 //
 //    }
 
-
 //
+
+
 //    @Test
 //    public void testGetWin1( ){
 //
+//        ArrayList<Cards> dealerHand = new ArrayList<Cards>(); // Deelerhand getter
 //
-//        p.hand = 21;
-//        dealer.hand = 10;
+//        ArrayList<Cards> hand = new ArrayList<Cards>();// Player hand getter
+//        dealerHand = ;
 //
-//        Assert.assertTrue( p.hand = 21 && !((p.hand = dealer.hand )));
+//
+//
+//
+//
+//       int dealerHandVal = hand;
+//
+//        int playerHandval = hand ;
+//        Assert.assertTrue( playerHandval = 21 && !((playerHandval = dealerHandVal )));
 //        // hand value = (int) 21 and not both hands
 //    }
 //
