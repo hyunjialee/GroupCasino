@@ -11,7 +11,6 @@ import com.github.zipcodewilmington.casino.games.Craps.CrapsPlayer;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessGame;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessPlayer;
 import com.github.zipcodewilmington.casino.games.slots.SlotsGame;
-import com.github.zipcodewilmington.casino.games.slots.SlotsPlayer;
 import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
 
@@ -35,14 +34,13 @@ public class Casino implements Runnable {
                 if (isValidLogin) {
                     String gameSelectionInput = getGameSelectionInput().toUpperCase();
                     if (gameSelectionInput.equalsIgnoreCase("SLOTS")) {
-                        play(new SlotsGame(), new SlotsPlayer(casinoAccount));
+                        play(new SlotsGame(), new com.github.zipcodewilmington.casino.games.slots.SlotsPlayer(casinoAccount));
                     } else if (gameSelectionInput.equalsIgnoreCase("NUMBERGUESS")) {
                         play(new NumberGuessGame(), new NumberGuessPlayer());
                     } else if (gameSelectionInput.equalsIgnoreCase("CHOHAN")) {
-                        play(new ChoHanGame(), new ChoHanPlayer(casinoAccount));
-                    }  else if (gameSelectionInput.equalsIgnoreCase("CRAPS")) {
-                        play(new CrapsGame(), new CrapsPlayer(casinoAccount));
-                    }else {
+                        play(new ChoHanGame(), new SlotsPlayer(casinoAccount));
+                    } else {
+                      
                         // TODO - implement better exception handling
                         System.out.println(arcadeDashBoardInput + " is an invalid game selection");
 //                        throw new RuntimeException(String.format(errorMessage, gameSelectionInput));
