@@ -24,13 +24,14 @@ public class CrapsGame extends AbstractRandomGame implements GameInterface {
     }
 
 
-
-
-
     @Override
     public void add(PlayerInterface player) {
         this.players.add(player);
 
+    }
+
+    public List<PlayerInterface> getList() {
+        return this.players;
     }
 
     @Override
