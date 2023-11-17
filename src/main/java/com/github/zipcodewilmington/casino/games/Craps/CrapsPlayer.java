@@ -10,7 +10,6 @@ public class CrapsPlayer implements PlayerInterface {
         this.casinoAccount = CasinoAccount;
     }
 
-
     @Override
     public CasinoAccount getArcadeAccount() {
         return this.casinoAccount;

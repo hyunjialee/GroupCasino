@@ -9,7 +9,6 @@ import com.github.zipcodewilmington.casino.games.BingoGame.BingoPlayer;
 import com.github.zipcodewilmington.casino.games.ChoHan.ChoHanGame;
 import com.github.zipcodewilmington.casino.games.ChoHan.ChoHanPlayer;
 import com.github.zipcodewilmington.casino.games.Craps.CrapsGame;
-import com.github.zipcodewilmington.casino.games.Craps.CrapsPlayer;
 import com.github.zipcodewilmington.casino.games.SimplifiedWar.SimplifiedWarGame;
 import com.github.zipcodewilmington.casino.games.SimplifiedWar.SimplifiedWarPlayer;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessGame;
@@ -47,7 +46,7 @@ public class Casino implements Runnable {
                     } else if (gameSelectionInput.equalsIgnoreCase("WAR")) {
                         play(new SimplifiedWarGame(), new SimplifiedWarPlayer(casinoAccount));
                     } else if (gameSelectionInput.equalsIgnoreCase("CRAPS")) {
-                        play(new CrapsGame(), new CrapsPlayer(casinoAccount));
+                        play(new CrapsGame(), new com.github.zipcodewilmington.casino.games.Craps.CrapsPlayer(casinoAccount));
                     } else if (gameSelectionInput.equalsIgnoreCase("BINGO")) {
                         play(new BingoGame(), new BingoPlayer(casinoAccount));
                     } else {
@@ -70,7 +69,6 @@ public class Casino implements Runnable {
                 } else {
                     System.out.println("This accounts exists, please try again");
                 }
-
             }
         } while (!"logout".equalsIgnoreCase(arcadeDashBoardInput));
         casinoAccountManager.saveToFile();
