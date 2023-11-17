@@ -6,6 +6,8 @@ import java.util.List;
 
 public class BingoBoardTest {
 
+
+    // creating a new/blank bingo board that'll convert to string
     @Test
     public void testToString() {
         final BingoBoard bingoBoard = new BingoBoard();
@@ -13,6 +15,7 @@ public class BingoBoardTest {
         System.out.println(bingoBoard);
     }
 
+    // testing if these a winner in a column
     @Test
     public void testIsWinnerColumn() {
         //Given

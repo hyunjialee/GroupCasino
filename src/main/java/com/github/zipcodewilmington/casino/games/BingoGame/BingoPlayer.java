@@ -26,11 +26,9 @@ public class BingoPlayer implements PlayerInterface {
     public Boolean play() {
         return bingoBoard.markBoard(currentCallOutValue);
     }
-    
-    public void setCurrentCallOutValue(String currentCallOutValue) {
-        this.currentCallOutValue = currentCallOutValue;
-    }
+
 
     public void setCurrentCallOut(String currentCallOutValue) {
+        this.currentCallOutValue = currentCallOutValue;
     }
 }
