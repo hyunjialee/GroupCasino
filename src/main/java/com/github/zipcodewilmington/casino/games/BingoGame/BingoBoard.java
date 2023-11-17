@@ -9,26 +9,26 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-// Visual of bingo board array style w/ rows and columns
-// multidimensional structure - String[][] / List<List<String>>
-// index     0     1    2    3    4
-//   0      [B14, I13, N22, G12, O15],
-//   1      [B14, I13, N22, G12, O15],
-//   2      [B14, I13, N22, G12, O15],
+//  Visual of bingo board array style w/ rows and columns
+//  multidimensional structure - String[][] / List<List<String>>
+//  index     0     1    2    3    4
+//    0      [B14, I13, N22, G12, O15],
+//    1      [B14, I13, N22, G12, O15],
+//    2      [B14, I13, N22, G12, O15],
 
 
-// list structure - String[] / List<String>
-// index    0    1    2    3    4
-// value   [B14, I13, N22, G12, O15]
+//  list structure - String[] / List<String>
+//  index    0    1    2    3    4
+//  value   [B14, I13, N22, G12, O15]
 
-// map structure - Map<String, Boolean>  (key=string // value=boolean)
-//        [        key,value      index
-//                (B14,true),   - 0
-//                (I13,true),   - 1
-//                (N22,false),  - 2
-//                (G12,true),   - 3
-//                (O15,true)    - 5
-//
+//  map structure - Map<String, Boolean>  (key=string // value=boolean)
+//         [        key,value      index
+//                 (B14,true),   - 0
+//                 (I13,true),   - 1
+//                 (N22,false),  - 2
+//                 (G12,true),   - 3
+//                 (O15,true)    - 5
+
 
 
 
