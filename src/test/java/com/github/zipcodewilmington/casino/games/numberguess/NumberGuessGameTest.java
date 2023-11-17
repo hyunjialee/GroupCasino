@@ -35,14 +35,14 @@ private NumberGuessPlayer numberGuessPlayer; //declaration the class
     }
 
 
-    @Test
-    public void  testnumberGuessRun() {
-        numberGuessGame.run();// this take the game and run it
-
-
-
-
-    }
+//    @Test
+//    public void  testnumberGuessRun() {
+//        numberGuessGame.run();// this take the game and run it
+//
+//
+//
+//
+//    }
 
     @Test
     public void testThatPlayerHandSizeIsTwoUponStart(){
@@ -80,19 +80,37 @@ private NumberGuessPlayer numberGuessPlayer; //declaration the class
         Assert.assertEquals(handSize,exceptedHandSize); // checking that we get two cards when the game start.
         //new item add to array
     }
+@Test
+    public  void  checkHandValue(){
+    numberGuessGame.run();
+    ArrayList<Cards> hand = numberGuessGame.getHand(); // hand getter
+    int startingHandValue = numberGuessGame.checkHandValue();
+        int min = 2;
+        int max = 30;
 
-//
-//    @Test
+
+    Integer actual = startingHandValue;
+
+    Assert.assertTrue((actual< max)); // the max
+    Assert.assertTrue((actual>= min )); // the lows
+    }
+
+  //  @Test
 //    public void  testStand(){
+//        numberGuessGame.stand(); // this runs the game.
 //
-//        p.hand().add(this.stand);
 //
 //
-//        Assert.assertEquals(this.stand);
-//        return this.stand;
+//
+//
+//
+//
+//        // check hand value
+//        Assert.assertEquals();
+//
 //    }
-//
-//
+
+
 //
 //    @Test
 //    public void testGetWin1( ){

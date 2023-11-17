@@ -71,14 +71,12 @@ public class NumberGuessGame {
         dealerHand.add(card4);
 
     }
-//    public void  startingDealerHand(Deck deck){ // this just dose it once in the begain.
-//        // pop 2 cards from deck
-//        Cards card1 = deck.draw();
-//        dealerHand.add(card1);
-//        Cards card2 = deck.draw();
-//        // put card in players hand
-//        dealerHand.add(card2);
+//    public String stand(){ // this skips a hit. / no cards add to hand.
+//        // create var to return string saying im good.
+//        String sta = " Im good ";// need the add method.
 //
+//        // then recheck the cards in hand display value
+//      return sta;
 //    }
 
     public void  playerHit(Deck deck){ // this is if Player want to hit
@@ -88,9 +86,15 @@ public class NumberGuessGame {
         // put card in players hand
 
     }
-    public void  checkHandVaule() {
-
-}
+    public int checkHandValue() {
+        int handSum = 0;
+        for( Cards cards:hand){
+          handSum = cards.getNumberValue().ordinal()
+                  +  cards.getNumberValue().getSecondaryValue() ;
+//something doesn't add up right
+        }
+        return handSum;
+    }
 
 
 
@@ -104,12 +108,14 @@ public class NumberGuessGame {
         hand = new ArrayList<>();
         dealerHand = new ArrayList<>();
 
+
         startingDealerHand(deck);
        startingHand(deck); // using my method
         System.out.println("this is the Player Hand " + hand.get(0).getNumberValue() + " " + hand.getFirst().getSuit());
-        System.out.println("last cards in Player Hand " + hand.get(hand.size()-1).getNumberValue());
-        System.out.println("this is the Dealer Hand " + dealerHand.get(0).getNumberValue() + " " + hand.getFirst().getSuit());
-        System.out.println("last cards in Dealer hand " + dealerHand.get(hand.size()-1).getNumberValue());
-        }
+        System.out.println("last cards in Player Hand " + hand.get(hand.size()-1).getNumberValue()+ " " + hand.getFirst().getSuit());
+        //System.out.println("this is the Dealer Hand " + dealerHand.get(0).getNumberValue() + " " + hand.getFirst().getSuit());
+       // System.out.println("last cards in Dealer hand " + dealerHand.get(hand.size()-1).getNumberValue());
+        System.out.println( " your at " +  checkHandValue() );
+    }
 
     }
