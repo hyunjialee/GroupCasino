@@ -35,7 +35,7 @@ public class ChoHanGame extends AbstractRandomGame implements GameInterface {
     @Override
     public String getPlayerBeginInput() {
         return console.getStringInput(new StringBuilder()
-        .append("Welcome to ChoHan Dice Game!")
+        .append("\nWelcome to ChoHan Dice Game!")
         .append("\nThere will be two dice rolled! Bet your amount and guess if it is EVEN or ODD")
         .append("\nSelect if you wish to start the game or quit back to the main menu")
         .append("\n\t [ START ], [ QUIT ]")
@@ -71,7 +71,7 @@ public class ChoHanGame extends AbstractRandomGame implements GameInterface {
                 .append("\nCongratulations!")
                 .append("\nYou have guessed correctly!")
                 .append("\nThe game of Cho Han is over, would you like to play again?")
-                .append("\n\t [ CONTINUE ], [ QUIT ]")
+                .append("\n\t [ AGAIN ], [ QUIT ]")
                 .toString());
     }
 
@@ -81,8 +81,12 @@ public class ChoHanGame extends AbstractRandomGame implements GameInterface {
                 .append("\n OH NOOOOOOO!")
                 .append("\nYou have guessed incorrectly!")
                 .append("\nThe game of Cho Han is over, would you like to play again?")
-                .append("\n\t [ CONTINUE ], [ QUIT ]")
+                .append("\n\t [ AGAIN ], [ QUIT ]")
                 .toString());
+    }
+
+    public List<PlayerInterface> getList(){
+        return this.players;
     }
     @Override
     public void run() {
@@ -96,7 +100,7 @@ public class ChoHanGame extends AbstractRandomGame implements GameInterface {
                     " | |    | |__   ___   | |__| | __ _ _ __  \n" +
                     " | |    | '_ \\ / _ \\  |  __  |/ _` | '_ \\ \n" +
                     " | |____| | | | (_) | | |  | | (_| | | | |\n" +
-                    "  \\_____|_| |_|\\___/  |_|  |_|\\__,_|_| |_|\n" +
+                    "  \\_____|_| |_|\\___/  |_|  |_|\\__,_|_| |_|" +
                     "                                          \n" + "              _______.\n" +
                     "   ______    | .   . |\\\n" +
                     "  /     /\\   |   .   |.\\\n" +

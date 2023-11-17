@@ -24,7 +24,6 @@ public class SlotsGame extends AbstractRandomGame implements GameInterface {
         this.players = new ArrayList<>();
     }
 
-
     @Override
     public void add(PlayerInterface player) {
         this.players.add(player);
@@ -35,19 +34,34 @@ public class SlotsGame extends AbstractRandomGame implements GameInterface {
         this.players.remove(player);
     }
 
+    public List<PlayerInterface> getList() {
+        return this.players;
+    }
     @Override
     public String getPlayerBeginInput() {
-        return null;
+        return console.getStringInput(new StringBuilder()
+                .append("\nWelcome to the Slots Game!")
+                .append("\nThe slot numbers must all match to win the bet amount placed")
+                .append("\nIf you win two numbers consecutively, you will win half of your bet back")
+                .append("\nSelect if you wish to start the game or quit back to the main menu")
+                .append("\n\t [ START ], [ QUIT ]")
+                .toString());
     }
 
     @Override
     public int getPlayerBetInput() {
-        return 0;
+        return console.getIntegerInput(new StringBuilder()
+                .append("Please place in your bet wager")
+                .toString());
     }
-
     @Override
     public String getPlayerInGameInput() {
-        return null;
+        return console.getStringInput(new StringBuilder()
+                .append("\nYou got two in a row!")
+                .append("\nYou have receive half of your bet back into your account")
+                .append("\nThe slots game is over, would you like to play again?")
+                .append("\n[ AGAIN ], [ QUIT ]")
+                .toString());
     }
 
     @Override
@@ -57,12 +71,22 @@ public class SlotsGame extends AbstractRandomGame implements GameInterface {
 
     @Override
     public String getPlayerWinInput() {
-        return null;
+        return console.getStringInput(new StringBuilder()
+                .append("\nCongratulations, you got three numbers in a row!")
+                .append("\nYou have won the slots machine!")
+                .append("\nThe slots game is over, would you like to play again?")
+                .append("\n[ AGAIN ], [ QUIT ]")
+                .toString());
     }
 
     @Override
     public String getPlayerLostInput() {
-        return null;
+        return console.getStringInput(new StringBuilder()
+                .append("\nTry again next time. Maybe you'll win :( ")
+                .append("\nYou have lost the slots machine!")
+                .append("\nThe slots game is over, would you like to play again?")
+                .append("\n[ AGAIN ], [ QUIT ]")
+                .toString());
     }
 
     @Override
@@ -72,13 +96,21 @@ public class SlotsGame extends AbstractRandomGame implements GameInterface {
         do {
             int bet = 0;
             CasinoAccount player = this.players.get(0).getArcadeAccount();
-            System.out.println("Welcome to the Slots Game!");
+            System.out.println("\n" +
+                    "  _____ _       ___   ______      ___ ___   ____    __  __ __  ____  ____     ___ \n" +
+                    " / ___/| |     /   \\ |      |    |   |   | /    |  /  ]|  |  ||    ||    \\   /  _]\n" +
+                    "(   \\_ | |    |     ||      |    | _   _ ||  o  | /  / |  |  | |  | |  _  | /  [_ \n" +
+                    " \\__  || |___ |  O  ||_|  |_|    |  \\_/  ||     |/  /  |  _  | |  | |  |  ||    _]\n" +
+                    " /  \\ ||     ||     |  |  |      |   |   ||  _  /   \\_ |  |  | |  | |  |  ||   [_ \n" +
+                    " \\    ||     ||     |  |  |      |   |   ||  |  \\     ||  |  | |  | |  |  ||     |\n" +
+                    "  \\___||_____| \\___/   |__|      |___|___||__|__|\\____||__|__||____||__|__||_____|\n" +
+                    "                                                                                  \n");
 
             gameInput = getPlayerBeginInput();
 
 
             if (gameInput.equalsIgnoreCase("start")) {
-                System.out.println(" [ ? ]  [ ? ]  [ ? ] ");
+                System.out.println("[ ? ]  [ ? ]  [ ? ] ");
 
                 bet += getPlayerBetInput();
 
@@ -86,20 +118,34 @@ public class SlotsGame extends AbstractRandomGame implements GameInterface {
                 int slot2 = dice.rollDice();
                 int slot3 = dice.rollDice();
 
-                System.out.println("[ " + slot1 + " ]  [ ? ]  [ ? ] ");
-                System.out.println("[ " + slot1 + " ]  [ " + slot2 + " ]  [ ? ] ");
-                System.out.println("[ " + slot1 + " ]  [ " + slot2 + " ]  [ " + slot3 + " ]");
+                System.out.println("[ " + slot1 + " ]  [ ? ]  [ ? ] \n\n");
+                System.out.println("[ " + slot1 + " ]  [ " + slot2 + " ]  [ ? ] \n\n");
+                System.out.println("[ " + slot1 + " ]  [ " + slot2 + " ]  [ " + slot3 + " ]\n\n");
 
 
                 if (slot1 == slot2 && slot2 == slot3) {
-                    //winning condition
+                    player.setBalance(player.getBalance() + bet);
+                    System.out.println(player.getName() + "'s total balance: " + player.getBalance());
+                    gameInput = getPlayerWinInput();
+
+                    //winning bet
+
+
                 } else if (slot1 == slot2 || slot2 == slot3) {
+                    bet /= 2;
+                    player.setBalance(player.getBalance() + bet);
+                    System.out.println(player.getName() + "'s total balance: " + player.getBalance());
+                    gameInput = getPlayerInGameInput();
+                    //half the money that was bet
 
                 } else {
+                    player.setBalance(player.getBalance() - bet);
+                    System.out.println(player.getName() + "'s total balance: " + player.getBalance());
+                    gameInput = getPlayerLostInput();
+
                     // losing condition
                 }
-
             }
-        } while (!"quit".equalsIgnoreCase(getPlayerInGameInput()));
+        } while (!"quit".equalsIgnoreCase(gameInput));
     }
 }
