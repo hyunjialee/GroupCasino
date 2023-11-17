@@ -84,6 +84,10 @@ public class ChoHanGame extends AbstractRandomGame implements GameInterface {
                 .append("\n\t [ AGAIN ], [ QUIT ]")
                 .toString());
     }
+
+    public List<PlayerInterface> getList(){
+        return this.players;
+    }
     @Override
     public void run() {
         String gameInput;

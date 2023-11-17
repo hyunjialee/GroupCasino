@@ -24,7 +24,6 @@ public class SlotsGame extends AbstractRandomGame implements GameInterface {
         this.players = new ArrayList<>();
     }
 
-
     @Override
     public void add(PlayerInterface player) {
         this.players.add(player);
@@ -35,6 +34,9 @@ public class SlotsGame extends AbstractRandomGame implements GameInterface {
         this.players.remove(player);
     }
 
+    public List<PlayerInterface> getList() {
+        return this.players;
+    }
     @Override
     public String getPlayerBeginInput() {
         return console.getStringInput(new StringBuilder()
@@ -141,10 +143,8 @@ public class SlotsGame extends AbstractRandomGame implements GameInterface {
                     System.out.println(player.getName() + "'s total balance: " + player.getBalance());
                     gameInput = getPlayerLostInput();
 
-
                     // losing condition
                 }
-
             }
         } while (!"quit".equalsIgnoreCase(gameInput));
     }

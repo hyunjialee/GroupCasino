@@ -41,7 +41,5 @@ class DiceTest {
         int result = dice.rollDice();
 
         Assert.assertTrue(result > 0);
-
     }
-
 }

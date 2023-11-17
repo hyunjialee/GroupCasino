@@ -3,11 +3,11 @@ package com.github.zipcodewilmington.casino.games.ChoHan;
 import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.PlayerInterface;
 
-public class ChoHanPlayer implements PlayerInterface {
+public class SlotsPlayer implements PlayerInterface {
     private CasinoAccount casinoAccount;
 
-    public ChoHanPlayer(CasinoAccount CasinoAccount){
-        this.casinoAccount = CasinoAccount;
+    public SlotsPlayer(CasinoAccount casinoAccount){
+        this.casinoAccount = casinoAccount;
     }
     @Override
     public CasinoAccount getArcadeAccount() {
