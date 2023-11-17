@@ -47,7 +47,7 @@ public class CrapsGameTest {
     @Test
     public void testCrapsConstructor() {
         CasinoAccount account = new CasinoAccount("bob", "the", 123);
-        ChoHanPlayer player2 = new ChoHanPlayer(account);
+        CrapsPlayer player2 = new CrapsPlayer(account);
 
         Assert.assertEquals(player2.getArcadeAccount(), account);
 
@@ -55,7 +55,7 @@ public class CrapsGameTest {
 
     @Test
     public void testGetAccount() {
-        ChoHanPlayer player3 = new ChoHanPlayer(null);
+        CrapsPlayer player3 = new CrapsPlayer(null);
 
         Assert.assertNull(player3.getArcadeAccount());
 
@@ -64,7 +64,7 @@ public class CrapsGameTest {
     @Test
     public void testGetAccount2() {
         CasinoAccount account = new CasinoAccount("bob", "1", 123);
-        ChoHanPlayer player3 = new ChoHanPlayer(account);
+        CrapsPlayer player3 = new CrapsPlayer(account);
 
         Assert.assertNotNull(player3.getArcadeAccount());
 
