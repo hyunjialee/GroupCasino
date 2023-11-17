@@ -94,7 +94,15 @@ public class SlotsGame extends AbstractRandomGame implements GameInterface {
         do {
             int bet = 0;
             CasinoAccount player = this.players.get(0).getArcadeAccount();
-            System.out.println("Welcome to the Slots Game!");
+            System.out.println("\n" +
+                    "  _____ _       ___   ______      ___ ___   ____    __  __ __  ____  ____     ___ \n" +
+                    " / ___/| |     /   \\ |      |    |   |   | /    |  /  ]|  |  ||    ||    \\   /  _]\n" +
+                    "(   \\_ | |    |     ||      |    | _   _ ||  o  | /  / |  |  | |  | |  _  | /  [_ \n" +
+                    " \\__  || |___ |  O  ||_|  |_|    |  \\_/  ||     |/  /  |  _  | |  | |  |  ||    _]\n" +
+                    " /  \\ ||     ||     |  |  |      |   |   ||  _  /   \\_ |  |  | |  | |  |  ||   [_ \n" +
+                    " \\    ||     ||     |  |  |      |   |   ||  |  \\     ||  |  | |  | |  |  ||     |\n" +
+                    "  \\___||_____| \\___/   |__|      |___|___||__|__|\\____||__|__||____||__|__||_____|\n" +
+                    "                                                                                  \n");
 
             gameInput = getPlayerBeginInput();
 
