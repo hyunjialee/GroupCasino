@@ -5,7 +5,9 @@ import com.github.zipcodewilmington.casino.CasinoAccountManager;
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
 import com.github.zipcodewilmington.casino.games.ChoHan.ChoHanGame;
-import com.github.zipcodewilmington.casino.games.ChoHan.SlotsPlayer;
+import com.github.zipcodewilmington.casino.games.ChoHan.ChoHanPlayer;
+import com.github.zipcodewilmington.casino.games.Craps.CrapsGame;
+import com.github.zipcodewilmington.casino.games.Craps.CrapsPlayer;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessGame;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessPlayer;
 import com.github.zipcodewilmington.casino.games.slots.SlotsGame;
@@ -38,6 +40,7 @@ public class Casino implements Runnable {
                     } else if (gameSelectionInput.equalsIgnoreCase("CHOHAN")) {
                         play(new ChoHanGame(), new SlotsPlayer(casinoAccount));
                     } else {
+                      
                         // TODO - implement better exception handling
                         System.out.println(arcadeDashBoardInput + " is an invalid game selection");
 //                        throw new RuntimeException(String.format(errorMessage, gameSelectionInput));
