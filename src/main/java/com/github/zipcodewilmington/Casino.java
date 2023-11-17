@@ -9,6 +9,7 @@ import com.github.zipcodewilmington.casino.games.BingoGame.BingoPlayer;
 import com.github.zipcodewilmington.casino.games.ChoHan.ChoHanGame;
 import com.github.zipcodewilmington.casino.games.ChoHan.ChoHanPlayer;
 import com.github.zipcodewilmington.casino.games.Craps.CrapsGame;
+import com.github.zipcodewilmington.casino.games.Craps.CrapsPlayer;
 import com.github.zipcodewilmington.casino.games.SimplifiedWar.SimplifiedWarGame;
 import com.github.zipcodewilmington.casino.games.SimplifiedWar.SimplifiedWarPlayer;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessGame;
@@ -46,7 +47,7 @@ public class Casino implements Runnable {
                     } else if (gameSelectionInput.equalsIgnoreCase("WAR")) {
                         play(new SimplifiedWarGame(), new SimplifiedWarPlayer(casinoAccount));
                     } else if (gameSelectionInput.equalsIgnoreCase("CRAPS")) {
-                        play(new CrapsGame(), new com.github.zipcodewilmington.casino.games.Craps.CrapsPlayer(casinoAccount));
+                        play(new CrapsGame(), new CrapsPlayer(casinoAccount));
                     } else if (gameSelectionInput.equalsIgnoreCase("BINGO")) {
                         play(new BingoGame(), new BingoPlayer(casinoAccount));
                     } else {
@@ -89,7 +90,7 @@ public class Casino implements Runnable {
                                 "                                                         /  \\__$$ |                                                                  \n" +
                                 "                                                         $$    $$/                                                                   \n" +
                                 "                                                          $$$$$$/                                                                    \n")
-                .append("\nWelcome to the Arcade Dashboard!")
+                .append("\nWelcome to the Casino Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
                 .append("\n\t[ create account ], [ select game ], [ logout ]")
                 .toString());
